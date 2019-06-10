@@ -10,25 +10,26 @@ const assert = require('assert');
 
 function dirReduc(arr){
     let brr = [];
+    let crr = [];
+    const flag = true;
     for (let a = 0; a < arr.length; a++){
         brr[a] = arr[a];
     }
     if(brr.length === 1){
         return brr[0];
     }
-    else {
+    if (flag) {
         for (let i = 0; i< arr.length; i++){
             switch (arr.slice(i, i+2)){
                 case ["NORTH", "SOUTH"]: brr.shift(); brr.shift();break;
                 case ["SOUTH", "NORTH"]: brr.shift(); brr.shift();break;
                 case ["EAST", "WEST"]: brr.shift(); brr.shift();break;
                 case ["WEST", "EAST"]: brr.shift(); brr.shift();break;
-                default: break;
+                default: crr.push(brr[i]);flag = false;break;
             };
         };
-        return brr;
     }
-}
+};
 
 assert(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]) === ["WEST"])
 assert(dirReduc(["NORTH", "WEST", "SOUTH", "EAST"]) === ["NORTH", "WEST", "SOUTH", "EAST"])
