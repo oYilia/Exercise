@@ -9,26 +9,26 @@ The Rust version takes a slice of enum Direction {NORTH, SOUTH, EAST, WEST}.
 const assert = require('assert');
 
 function dirReduc(arr){
-    let brr = [];
-    let crr = [];
-    const flag = true;
-    for (let a = 0; a < arr.length; a++){
-        brr[a] = arr[a];
-    }
-    if(brr.length === 1){
-        return brr[0];
-    }
-    if (flag) {
-        for (let i = 0; i< arr.length; i++){
-            switch (arr.slice(i, i+2)){
-                case ["NORTH", "SOUTH"]: brr.shift(); brr.shift();break;
-                case ["SOUTH", "NORTH"]: brr.shift(); brr.shift();break;
-                case ["EAST", "WEST"]: brr.shift(); brr.shift();break;
-                case ["WEST", "EAST"]: brr.shift(); brr.shift();break;
-                default: crr.push(brr[i]);flag = false;break;
-            };
-        };
-    }
+    let count = 0;
+    for (var i=0;count < arr.length;i++) {
+        if ((arr[0] == ["NORTH"]) && (arr[1] == ["SOUTH"])){
+            arr.shift();arr.shift();count = 0;
+        }
+        else if ((arr[0] == ["SOUTH"]) && (arr[1] == ["NORTH"])){
+            arr.shift();arr.shift();count = 0;
+        }
+        else if ((arr[0] == ["EAST"]) && (arr[1] == ["WEST"])){
+            arr.shift();arr.shift();count = 0;
+        }
+        else if ((arr[0] == ["WEST"]) && (arr[1] == ["EAST"])){
+            arr.shift();arr.shift();count = 0;
+        }
+        else {
+            arr.push(arr[0]);arr.shift();
+            count++;
+        }
+    };
+    return arr;
 };
 
 assert(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]) === ["WEST"])
