@@ -11,20 +11,19 @@ const assert = require('assert');
 function dirReduc(arr){
     let count = 0;
     for (var i=0;count < arr.length;i++) {
-        if ((arr[0] == ["NORTH"]) && (arr[1] == ["SOUTH"])){
-            arr.shift();arr.shift();count = 0;
+        if ((arr[count] == ["NORTH"]) && (arr[count+1] == ["SOUTH"])){
+            arr.splice(count, 2);count = 0;
         }
-        else if ((arr[0] == ["SOUTH"]) && (arr[1] == ["NORTH"])){
-            arr.shift();arr.shift();count = 0;
+        else if ((arr[count] == ["SOUTH"]) && (arr[count+1] == ["NORTH"])){
+            arr.splice(count, 2);count = 0;
         }
-        else if ((arr[0] == ["EAST"]) && (arr[1] == ["WEST"])){
-            arr.shift();arr.shift();count = 0;
+        else if ((arr[count] == ["EAST"]) && (arr[count+1] == ["WEST"])){
+            arr.splice(count, 2);count = 0;
         }
-        else if ((arr[0] == ["WEST"]) && (arr[1] == ["EAST"])){
-            arr.shift();arr.shift();count = 0;
+        else if ((arr[count] == ["WEST"]) && (arr[count+1] == ["EAST"])){
+            arr.splice(count, 2);count = 0;
         }
         else {
-            arr.push(arr[0]);arr.shift();
             count++;
         }
     };
@@ -34,3 +33,21 @@ function dirReduc(arr){
 assert(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]) === ["WEST"])
 assert(dirReduc(["NORTH", "WEST", "SOUTH", "EAST"]) === ["NORTH", "WEST", "SOUTH", "EAST"])
 assert(dirReduc(["NORTH", "SOUTH", "EAST", "WEST", "EAST", "WEST"]) === [])
+
+// function dirReduc(plan) {
+//     var opposite = {
+//       'NORTH': 'SOUTH', 'EAST': 'WEST', 'SOUTH': 'NORTH', 'WEST': 'EAST'};
+//     return plan.reduce(function(dirs, dir){
+//         if (dirs[dirs.length - 1] === opposite[dir])
+//           dirs.pop();
+//         else
+//           dirs.push(dir);
+//         return dirs;
+//       }, []);
+//   }
+
+// function dirReduc(arr) {
+//     var str = arr.join(''), pattern = /NORTHSOUTH|EASTWEST|SOUTHNORTH|WESTEAST/;
+//     while (pattern.test(str)) str = str.replace(pattern,'');
+//     return str.match(/(NORTH|SOUTH|EAST|WEST)/g)||[];
+//   }
